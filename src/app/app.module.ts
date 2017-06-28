@@ -13,6 +13,9 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { CallNumber } from '@ionic-native/call-number';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { Facebook } from '@ionic-native/facebook';
+
 import { FireProvider } from '../providers/fire';
 
 
@@ -47,6 +50,8 @@ const config = {
     GoogleMaps,
     CallNumber,
     PhotoViewer,
+    Facebook,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FireProvider
   ]

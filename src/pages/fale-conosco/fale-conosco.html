@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Contato</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item>
+          <ion-label>Email</ion-label>
+          <ion-input type="text" [(ngModel)]="email" ></ion-input>
+        </ion-item>
+
+        <ion-item class="mensagem">
+          <ion-textarea placeholder='Mensagem' type="text" [(ngModel)]="mensagem"></ion-textarea>
+        </ion-item>
+      </ion-list>
+      <button ion-button full (click)="enviar()" [disabled]="email.length < 1 || mensagem.length < 5" >Enviar</button>
+    </ion-col>
+  </ion-row>
+  
+</ion-content>

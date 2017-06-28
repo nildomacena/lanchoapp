@@ -14,3 +14,22 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.contato{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+.header-menu{
+  min-height: 40vw;
+}
+
+.avatar-menu{
+  border-bottom: 0px;
+  min-height: 40vw;
+}
+
+.item-inner{
+  border-bottom: 0px;
+}

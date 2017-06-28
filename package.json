@@ -22,8 +22,10 @@
         "@angular/platform-browser-dynamic": "4.1.3",
         "@ionic-native/call-number": "^3.12.1",
         "@ionic-native/core": "3.12.1",
+        "@ionic-native/facebook": "^3.12.1",
         "@ionic-native/google-maps": "^3.12.1",
         "@ionic-native/photo-viewer": "^3.12.1",
+        "@ionic-native/social-sharing": "^3.12.1",
         "@ionic-native/splash-screen": "3.12.1",
         "@ionic-native/status-bar": "3.12.1",
         "@ionic/storage": "2.0.1",
@@ -33,10 +35,13 @@
         "cordova-android": "^6.2.3",
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
+        "cordova-plugin-facebook4": "^1.9.1",
         "cordova-plugin-googlemaps": "^1.4.1",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.2",
         "cordova-plugin-whitelist": "^1.3.1",
+        "cordova-plugin-x-socialsharing": "^5.1.8",
+        "es6-promise-plugin": "^4.1.0",
         "firebase": "^4.1.3",
         "ionic-angular": "3.4.2",
         "ionic-plugin-keyboard": "^2.2.1",
@@ -65,7 +70,12 @@
             "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {},
             "mx.ferreyra.callnumber": {},
-            "com-sarriaroman-photoviewer": {}
+            "com-sarriaroman-photoviewer": {},
+            "cordova-plugin-x-socialsharing": {},
+            "cordova-plugin-facebook4": {
+                "APP_ID": "1791975454446594",
+                "APP_NAME": "Lanchonapp"
+            }
         },
         "platforms": [
             "android"

@@ -1,0 +1,33 @@
+<ion-content class="cards-bg">
+
+  <ion-card >
+
+    <img (click)="abrirImagem()" [src]="imagem"/>
+
+    <ion-card-content>
+      <ion-card-title>
+        X-Burger com fritas e refrigerante
+      </ion-card-title>
+      <p>
+        Quer ganhar um Combo X-Burger mais batata-frita mais refrigerante? É facil! Basta clicar em Inscrever-se, logo abaixo, e compartilhar essa imagem com o texto: "Esse lanche é meu" nas suas redes sociais. O post tem que ser públic, ok?!
+        Lembrando que pra ganhar tem que cumprir essses requistos. Boa sorte e fique de olho no nosso aplicativo, o resultado do sorteio será divulgado no dia 05/07/2017 aqui pelo aplicativo!
+      </p>
+    </ion-card-content>
+
+    <ion-row no-padding>
+      <ion-col>
+        <button style="font-size: 70%" (click)="inscrever(sorteio)" ion-button clear small color="danger" icon-left>
+          <ion-icon name='checkbox-outline'></ion-icon>
+          Inscrever-se
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button style="font-size: 70%" (click)="compartilhar()" ion-button clear small color="danger" icon-left>
+          <ion-icon name='share'></ion-icon>
+          Compartilhar
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+</ion-content>

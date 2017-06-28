@@ -1,0 +1,14 @@
+<ion-header>
+
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Sorteios</ion-title>
+    </ion-navbar>
+
+</ion-header>
+<ion-tabs>
+    <ion-tab [root]="sorteiosPendentesRoot" tabTitle="Sorteios pendentes"></ion-tab>
+    <ion-tab [root]="sorteiosRealizadosRoot" tabTitle="Sorteios realizados"></ion-tab>
+</ion-tabs>

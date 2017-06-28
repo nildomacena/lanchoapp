@@ -2,7 +2,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CallNumber } from '@ionic-native/call-number';
 import { FireProvider } from './../../providers/fire';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, App } from 'ionic-angular';
 
 
 @IonicPage()
@@ -16,6 +16,7 @@ export class Tab1Page {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public alertCtrl: AlertController,
+    public app: App,
     public callNumber: CallNumber,
     public photoViewer: PhotoViewer,
     public fire: FireProvider
@@ -40,7 +41,7 @@ export class Tab1Page {
   }
 
   openDetail(item){
-    this.navCtrl.push('ItemDetailPage',{item:item});
+    this.app.getRootNav().push('ItemDetailPage',{item:item});
   }
 
   ligar(){

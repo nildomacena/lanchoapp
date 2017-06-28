@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Sanduíches</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let item of itens">
+      <ion-avatar item-start (click)="abrirImagem(item)" >
+        <ion-img [src]="item.imagem"></ion-img>
+      </ion-avatar>
+      <h2 (click)="openDetail(item)" >{{item.descricao}}</h2>
+      <p (click)="openDetail(item)">{{item.detalhes}}</p>
+      <ion-note item-end (click)="openDetail()">{{item.preco | currency:'BRL':true}}</ion-note>
+    </ion-item>
+  </ion-list>
+  <ion-fab bottom right >
+    <button ion-fab (click)="ligar()" ><ion-icon name="call"></ion-icon></button>
+  </ion-fab>
+</ion-content>

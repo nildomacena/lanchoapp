@@ -1,35 +1,54 @@
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
+import { CallNumber } from '@ionic-native/call-number';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { FireProvider } from '../providers/fire';
 
+
+const config = {
+    apiKey: "AIzaSyCzjsFXzcq8-X7ut-0Nnd_zYB74EQGVAP8",
+    authDomain: "lanchonete-51dd3.firebaseapp.com",
+    databaseURL: "https://lanchonete-51dd3.firebaseio.com",
+    projectId: "lanchonete-51dd3",
+    storageBucket: "lanchonete-51dd3.appspot.com",
+    messagingSenderId: "1044105592998"
+  };
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     ListPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(config),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     ListPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    GoogleMaps,
+    CallNumber,
+    PhotoViewer,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FireProvider
   ]
 })
 export class AppModule {}

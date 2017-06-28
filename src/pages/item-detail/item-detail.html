@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{item.descricao}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col col-8 offset-2 >
+        <img [src]="item.imagem">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <hr>
+  <ion-list>
+    <ion-item>
+      <p class="detalhes">{{item.detalhes}}</p>
+    </ion-item>
+  </ion-list>
+  <div class="info">
+    <p text-right>{{item.preco | currency:'BRL':true}}</p>
+  </div>
+  <ion-fab bottom right >
+    <button ion-fab (click)="ligar()" ><ion-icon name="call"></ion-icon></button>
+  </ion-fab>
+</ion-content>

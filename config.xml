@@ -3,11 +3,12 @@
     <name>Lanchoapp</name>
     <description>O app para sua lanchonete</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Koine Development</author>
-    <content original-src="index.html" src="http://10.0.0.102:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://192.168.1.9:8100" />
     <allow-navigation href="http://10.0.0.102:8100" />
+    <allow-navigation href="http://192.168.1.22:8100" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

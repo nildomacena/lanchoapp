@@ -1,3 +1,4 @@
+import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -8,18 +9,19 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/first';
 
-
 @Injectable()
 export class FireProvider {
-  user: Observable<firebase.User>;
+  authState: Observable<firebase.User>;
+  user: any;
   constructor(
     public db: AngularFireDatabase,
     public afAuth: AngularFireAuth,
+    public platform: Platform,
     public facebook:Facebook
     ) {
-      this.user = this.afAuth.authState;
-      this.user.subscribe(user => {
-        console.log(user);
+      this.authState = this.afAuth.authState;
+      this.authState.subscribe(user => {
+        this.user = firebase.auth().currentUser;
       })
   }
 
@@ -31,13 +33,34 @@ export class FireProvider {
       return firebase.database().ref('contato').push({email: email, mensagem: message})
   }
 
-  loginComFacebook(){
-    let provider = new firebase.auth.FacebookAuthProvider();
-    console.log('login com facebook') 
-    provider.addScope('public_profile');
-    provider.addScope('user_friends');
-    provider.addScope('email');
-    firebase.auth().signInWithCredential(provider)
-    
+  loginComFacebook(): firebase.Promise<any>{
+    if(this.platform.is('mobile') && this.platform.is('cordova')){
+      console.log('rodando no smartphone');
+      return this.facebook.login(['user_friends', 'public_profile', 'email'])
+        .then(userFacebook => {
+          let accessToken = userFacebook.authResponse.accessToken;
+          let credential: firebase.auth.AuthCredential;
+          console.log(userFacebook);
+          firebase.auth().signInWithCredential(firebase.auth.FacebookAuthProvider.credential(accessToken))
+            .then(user => {
+                console.log('User após credencial: ', user);
+                return Promise.resolve('logado');
+            })
+            .catch(err => {
+              console.error(err);
+            })
+        })
+    }
+    else{
+      console.log('rodando no navegador');
+      let provider = new firebase.auth.FacebookAuthProvider();
+      
+      return firebase.auth().signInWithRedirect(provider);
+
+    }
+  }
+
+  logout(){
+    return firebase.auth().signOut();
   }
 }

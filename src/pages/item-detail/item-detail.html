@@ -8,6 +8,19 @@
 
 
 <ion-content no-padding>
+  <ion-card padding>
+    <img [src]="item.imagem" >
+    <ion-card-title>
+      {{item.descricao}}
+    </ion-card-title>
+    <p>
+      {{item.detalhes}}
+    </p>
+    <div class="info">
+      <p text-right>{{item.preco | currency:'BRL':true}}</p>
+    </div>
+  </ion-card>
+  <!--
   <ion-grid no-padding>
     <ion-row>
       <ion-col col-8 offset-2 >
@@ -18,12 +31,12 @@
   <hr>
   <ion-list>
     <ion-item>
-      <p class="detalhes">{{item.detalhes}}</p>
+      <p>{{item.detalhes}}</p>
     </ion-item>
   </ion-list>
   <div class="info">
     <p text-right>{{item.preco | currency:'BRL':true}}</p>
-  </div>
+  </div>-->
   <ion-fab bottom right >
     <button ion-fab (click)="ligar()" ><ion-icon name="call"></ion-icon></button>
   </ion-fab>

@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import * as firebase from 'firebase/app';
 
 import { ListPage } from '../pages/list/list';
 
@@ -11,7 +12,8 @@ import { ListPage } from '../pages/list/list';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
+  user: any;
+  logado:boolean = false;
   rootPage: any = 'MenuPage';
 
   pages: Array<{title: string, component: any, icon?:string}>;
@@ -24,7 +26,19 @@ export class MyApp {
     public app: App
     ) {
     this.initializeApp();
+    this.fire.authState.subscribe(dados => {
+        console.log(dados);
+        if(dados){
+          this.user = firebase.auth().currentUser;
+          console.log(this.user);
+          this.logado = true
 
+        }
+        else{
+          this.logado = false;
+          console.log('Não está logado');
+        }
+      })
     this.pages = [
       { title: 'Nos encontre', component: 'MapaPage', icon:'map' },
       { title: 'Cardápio', component: 'MenuPage', icon:'book' },
@@ -47,7 +61,10 @@ export class MyApp {
     this.nav.push(page.component);
   }
 
-  sair(){
+  login(){
     this.fire.loginComFacebook();
+  }
+  sair(){
+    this.fire.logout();
   }
 }

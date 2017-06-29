@@ -1,12 +1,15 @@
 <ion-menu [content]="content">
 
   <ion-content>
-    <ion-list>
+    <div class="facebook-container" *ngIf="!logado">
+      <button menuClose style="background-color: #3b5997" ion-button full (click)="login()" ><ion-icon name="logo-facebook"></ion-icon>&nbsp;&nbsp;Login com Facebook</button>
+    </div>
+    <ion-list *ngIf="logado">
       <ion-item class="avatar-menu" color="primary">
         <ion-avatar item-start>
-          <img style="height: 23vw; width:23vw" src="https://scontent.fmcz4-1.fna.fbcdn.net/v/t1.0-9/14502868_1084987124918577_7470163265578933225_n.jpg?oh=be02820c7ec274c751b2fe23dd95ef4b&oe=59C91FBD">
+          <img style="height: 23vw; width:23vw" [src]="user.photoURL">
         </ion-avatar>
-        <h2>Nildo Macena</h2>
+        <h2>{{user.displayName}}</h2>
       </ion-item>
     </ion-list> 
     <ion-list>
@@ -14,7 +17,7 @@
         <ion-icon [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
-      <button menuClose ion-item (click)="sair()">
+      <button menuClose ion-item (click)="sair()" *ngIf="logado">
         <ion-icon name="log-out"></ion-icon>
         Sair
       </button>

@@ -13,9 +13,17 @@
       </ion-item>
     </ion-list> 
     <ion-list>
+      <button menuClose ion-item (click)="goToMenu()">
+        <ion-icon name="book"></ion-icon>
+        Menu
+      </button>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon [name]="p.icon"></ion-icon>
         {{p.title}}
+      </button>
+      <button menuClose ion-item (click)="goToCadastroItem()" *ngIf="logado">
+        <ion-icon name="log-out"></ion-icon>
+        Cadastrar item
       </button>
       <button menuClose ion-item (click)="sair()" *ngIf="logado">
         <ion-icon name="log-out"></ion-icon>

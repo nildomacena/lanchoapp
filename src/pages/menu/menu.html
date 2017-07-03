@@ -1,5 +1,20 @@
-<ion-tabs>
-    <ion-tab [root]="tab1Root" tabTitle="Sanduíches"></ion-tab>
-    <ion-tab [root]="tab2Root" tabTitle="Bebidas"></ion-tab>
-    <ion-tab [root]="tab3Root" tabTitle="Combos"></ion-tab>
-</ion-tabs>
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{titulo}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<super-tabs tabsPlacement="bottom" indicatorColor="white" toolbarColor="white" (tabSelect)="onTabSelect($event)" [config]="{ sideMenu: 'left' }">
+    <super-tab [root]="tab1Root" title="Sanduíches"></super-tab>
+    <super-tab [root]="tab2Root" title="Bebidas"></super-tab>
+    <super-tab [root]="tab3Root" title="Combos"></super-tab>
+</super-tabs>
+<ion-fab bottom right >
+    <button ion-fab (click)="ligar()" ><ion-icon name="call"></ion-icon></button>
+</ion-fab>

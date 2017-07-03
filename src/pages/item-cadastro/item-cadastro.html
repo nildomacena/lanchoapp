@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cadastro de itens</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<form (ngSubmit)="salvar()" #registerForm="ngForm">
+  <ion-row>
+    <ion-col>
+      <ion-list inset>
+        
+        <ion-item>
+          <ion-input type="text" placeholder="Descrição" name="descricao" [(ngModel)]="item.descricao" required [ngModelOptions]="{standalone: true}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="Nome" name="preco" clearInput [(ngModel)]="item.preco" required [ngModelOptions]="{standalone: true}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tab Correspondente</ion-label>
+          <ion-select [(ngModel)]="item.tab" [ngModelOptions]="{standalone: true}">
+            <ion-option *ngFor="let tab of tabs" [value]="tab.$key">{{tab.descricao}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col class="signup-col">
+      <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Salvar</button>
+    </ion-col>
+  </ion-row>
+</form>
+</ion-content>

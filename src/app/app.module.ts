@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SuperTabsController } from 'ionic2-super-tabs';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { CallNumber } from '@ionic-native/call-number';
@@ -37,6 +38,7 @@ const config = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
+    //SuperTabsModule.forRoot(),
     AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
@@ -52,6 +54,7 @@ const config = {
     PhotoViewer,
     Facebook,
     SocialSharing,
+    SuperTabsController,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FireProvider
   ]

@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Lista de mesas</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-grid no-padding>
+    <ion-row no-padding>
+      <ion-col [ngClass]="{comanda_aberta: mesa.comanda_aberta != undefined}" padding text-center col-5 margin-left margin-bottom *ngFor="let mesa of mesas" (click)="goToMesa(mesa)" >
+        <div style="padding-top: 6vw">
+          Mesa {{mesa.descricao}}
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab bottom right >
+    <button ion-fab (click)="cadastrar()" ><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

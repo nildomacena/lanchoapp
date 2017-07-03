@@ -29,10 +29,27 @@ export class FireProvider {
     return this.db.list('itens').first().toPromise();
   } 
 
+  listarMesas(){
+    return this.db.list('mesas').first().toPromise();
+  }
+  listarTabs(){
+    return this.db.list('tabs').first().toPromise();
+  }
   enviaMensagem(email: string, message: string): firebase.Promise<any>{
       return firebase.database().ref('contato').push({email: email, mensagem: message})
   }
 
+  criarUsuarioComEmail(email:string, senha:string, nome:string){
+    return firebase.auth().createUserWithEmailAndPassword(email,senha)
+              .then(user => {
+                console.log(user);
+                firebase.auth().currentUser.updateProfile({displayName: nome, photoURL: ''});
+                this.db.list('usuarios_sys/').push({uid:user.uid, nome: nome, email: user.email})
+              })
+  }
+  loginComEmail(email:string, senha:string){
+    return firebase.auth().signInWithEmailAndPassword(email,senha);
+  }
   loginComFacebook(): firebase.Promise<any>{
     if(this.platform.is('mobile') && this.platform.is('cordova')){
       console.log('rodando no smartphone');
@@ -60,6 +77,18 @@ export class FireProvider {
     }
   }
 
+  checaAcessoRestrito():Promise<boolean>{ //Verifica se o usuário tem acesso restrito ao sistema
+    return this.db.list('usuarios_sys/',{query :{
+      orderByChild: 'uid',
+      equalTo: firebase.auth().currentUser.uid
+    }}).first().toPromise().then(user_sys => {
+      console.log(user_sys);
+      if(user_sys.length > 0)
+        return Promise.resolve(true);
+      else  
+        return Promise.resolve(false);
+    })
+  }
   logout(){
     return firebase.auth().signOut();
   }

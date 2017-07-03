@@ -15,7 +15,7 @@ export class MyApp {
   user: any;
   logado:boolean = false;
   rootPage: any = 'MenuPage';
-
+  usuario_sys: boolean = false;
   pages: Array<{title: string, component: any, icon?:string}>;
 
   constructor(
@@ -30,6 +30,18 @@ export class MyApp {
         console.log(dados);
         if(dados){
           this.user = firebase.auth().currentUser;
+          this.fire.checaAcessoRestrito()
+            .then(user_sys => {
+              if(user_sys){
+                this.usuario_sys = true;
+                this.nav.setRoot('MesasPage')
+
+              }
+              else{
+                this.usuario_sys = true;
+                this.nav.setRoot('MenuPage')
+              }
+            })
           console.log(this.user);
           this.logado = true
 
@@ -41,8 +53,9 @@ export class MyApp {
       })
     this.pages = [
       { title: 'Nos encontre', component: 'MapaPage', icon:'map' },
-      { title: 'Cardápio', component: 'MenuPage', icon:'book' },
-      { title: 'Sorteios', component: 'SorteiosPage', icon:'logo-usd' }
+      //{ title: 'Cardápio', component: 'MenuPage', icon:'book' },
+      { title: 'Sorteios', component: 'SorteiosPage', icon:'logo-usd' },
+      { title: 'Acesso restrito', component: 'AcessoRestritoPage', icon:'lock' }
     ];
 
   }
@@ -56,15 +69,23 @@ export class MyApp {
   goToContato(){
     this.app.getRootNav().push('FaleConoscoPage', {adicional:true});
   }
+  goToCadastroItem(){
+    this.nav.push('ItemCadastroPage');
+  }
   openPage(page) {
 
     this.nav.push(page.component);
   }
-
+  goToMenu(){
+    this.nav.setRoot('MenuPage');
+  }
   login(){
     this.fire.loginComFacebook();
   }
   sair(){
-    this.fire.logout();
+    this.fire.logout()
+      .then(_ => {
+        this.nav.setRoot('MenuPage');
+      })
   }
 }

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { MenuPage } from './menu';
 import { Tab1Page } from '../tab1/tab1';
+import { SuperTabsModule } from 'ionic2-super-tabs';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { Tab1Page } from '../tab1/tab1';
   ],
   imports: [
     IonicPageModule.forChild(MenuPage),
+    SuperTabsModule
   ]
 })
 export class MenuPageModule {}

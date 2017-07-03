@@ -38,7 +38,7 @@ export class MyApp {
 
               }
               else{
-                this.usuario_sys = true;
+                this.usuario_sys = false;
                 this.nav.setRoot('MenuPage')
               }
             })
@@ -55,7 +55,6 @@ export class MyApp {
       { title: 'Nos encontre', component: 'MapaPage', icon:'map' },
       //{ title: 'Cardápio', component: 'MenuPage', icon:'book' },
       { title: 'Sorteios', component: 'SorteiosPage', icon:'logo-usd' },
-      { title: 'Acesso restrito', component: 'AcessoRestritoPage', icon:'lock' }
     ];
 
   }
@@ -65,6 +64,10 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  goToAcessoRestrito(){
+    this.app.getRootNav().push('AcessoRestritoPage');
   }
   goToContato(){
     this.app.getRootNav().push('FaleConoscoPage', {adicional:true});

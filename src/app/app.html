@@ -7,7 +7,7 @@
     <ion-list *ngIf="logado">
       <ion-item class="avatar-menu" color="primary">
         <ion-avatar item-start>
-          <img style="height: 23vw; width:23vw" [src]="user.photoURL">
+          <img style="height: 23vw; width:23vw" [src]="user.photoURL? user.photoURL: 'http://www.bellfone.com.br/assets/img/no-photo.jpg' ">
         </ion-avatar>
         <h2>{{user.displayName}}</h2>
       </ion-item>
@@ -21,7 +21,11 @@
         <ion-icon [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
-      <button menuClose ion-item (click)="goToCadastroItem()" *ngIf="logado">
+      <button menuClose ion-item (click)="goToCadastroItem()" *ngIf="logado && usuario_sys">
+        <ion-icon name="log-out"></ion-icon>
+        Cadastrar item
+      </button>
+      <button menuClose ion-item (click)="goToAcessoRestrito()" *ngIf="!logado">
         <ion-icon name="log-out"></ion-icon>
         Cadastrar item
       </button>

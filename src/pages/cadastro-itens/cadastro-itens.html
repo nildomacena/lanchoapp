@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cadastro de itens</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label floating >Descrição do item</ion-label>
+    <ion-input [(ngModel)]="descricao"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating >Preço</ion-label>
+    <ion-input [(ngModel)]="preco" (keyup)="amountChange()" clearInput></ion-input>
+  </ion-item>
+  <ion-item *ngIf="item && !atualizarCategoria" >
+    <ion-label floating >Categoria</ion-label>
+    <ion-input [(ngModel)]="item.categoria_descricao" disabled (click)="editarCategoria()" ></ion-input>
+  </ion-item>
+  <ion-item *ngIf="!item || (item && atualizarCategoria)" >
+    <ion-label>Categorias</ion-label>
+    <ion-select [(ngModel)]="categoriaSelecionada" >
+      <ion-option *ngFor="let categoria of categorias" [value]="categoria">{{categoria.descricao}}</ion-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-grid *ngIf="item">
+    <ion-row>
+      <ion-col col-5><button ion-button full color="danger" (click)="apagar()" >Apagar</button></ion-col>
+      <ion-col col-2></ion-col>
+      <ion-col col-5><button ion-button full color="green" [disabled]="descricao?.length <= 0 || preco?.length <= 0 || (!categoriaSelecionada && !item)" (click)="salvar()" >Salvar</button></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!item">
+    <ion-row>
+      <ion-col col-2></ion-col>
+      <ion-col col-8><button ion-button full [disabled]="descricao?.length <= 0 || !categoriaSelecionada || preco?.length <= 0" (click)="salvar()" >Salvar</button></ion-col>
+      <ion-col col-2></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

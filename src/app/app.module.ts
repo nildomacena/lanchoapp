@@ -18,6 +18,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { Facebook } from '@ionic-native/facebook';
 
 import { FireProvider } from '../providers/fire';
+import { UtilProvider } from '../providers/util';
 
 
 const config = {
@@ -56,7 +57,8 @@ const config = {
     SocialSharing,
     SuperTabsController,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FireProvider
+    FireProvider,
+    UtilProvider
   ]
 })
 export class AppModule {}

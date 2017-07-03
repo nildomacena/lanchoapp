@@ -37,6 +37,7 @@ export class MesasPage {
   }
 
   goToMesa(mesa: any){
+    this.navCtrl.push('MesaPage',{mesa:mesa});
     console.log(mesa);
   }
 }

@@ -27,11 +27,20 @@ export class FireProvider {
 
   listarItens(){
     return this.db.list('itens').first().toPromise();
-  } 
+  }
+
+  listarCategorias(){
+    return this.db.list('categorias').first().toPromise();
+  }
 
   listarMesas(){
     return this.db.list('mesas').first().toPromise();
   }
+  
+  getMesa(mesa_key:string){
+    return this.db.object(`mesas/${mesa_key}`);
+  }
+
   listarTabs(){
     return this.db.list('tabs').first().toPromise();
   }
@@ -39,6 +48,79 @@ export class FireProvider {
       return firebase.database().ref('contato').push({email: email, mensagem: message})
   }
 
+
+
+                        /*** ITENS ***/
+
+editarItem(item_key: string, descricao:string, preco:number, categoria:any){
+    return this.db.list('itens/').update(item_key, {
+      descricao: descricao,
+      preco: preco,
+      categoria_key: categoria.$key,
+      categoria_descricao: categoria.descricao
+    })      
+  }
+
+  deletarItem(item_key){
+    return this.db.list('itens').remove(item_key);
+  }
+
+  salvarItem(descricao:string, preco:number, categoria:any){
+    return this.db.list('itens').push({descricao: descricao, preco:preco, categoria_descricao: categoria.descricao, categoria_key: categoria.$key})
+  }
+                        /*** COMANDA  ***/
+
+
+  limparComanda(mesa_key){
+    return this.db.object(`mesas/${mesa_key}/comanda_aberta`).remove();
+  }                    
+
+  verificarComandaAberta(mesa_key): firebase.Promise<any>{
+    let itens: any[];
+    return this.db.object(`mesas/${mesa_key}/comanda_aberta/itens`)
+      .first().toPromise().then(itensBD => {
+        itens = itensBD;
+        itens.map(item => {
+          item['impresso'] = true;
+        })
+      })
+  }
+
+
+  fecharComanda(mesa:any, valor_total:number){
+    let timestamp = new Date().getTime();
+    Object.keys(mesa.comanda_aberta.itens).map(key => {
+      delete mesa.comanda_aberta.itens[key].key
+    })
+    
+    let obj = {
+      mesa_descricao: mesa.descricao,
+      mesa_key: mesa.$key,
+      itens: mesa.comanda_aberta.itens,
+      timestamp: timestamp,
+      valor_total: valor_total,
+      atendido_por: this.afAuth.auth.currentUser.displayName? this.afAuth.auth.currentUser.displayName: this.afAuth.auth.currentUser.email
+    }
+    console.log(obj);
+    return this.db.list('pedidos/').push(obj)
+              .then(_ => {
+                return this.db.object(`mesas/${mesa.$key}/comanda_aberta`).remove()
+              })
+  }
+
+  imprimirComanda(){
+
+  }
+
+  adicionarItemComanda(mesa_key:string, item: any){
+    return this.db.list(`mesas/${mesa_key}/comanda_aberta/itens`).push(item);
+  }
+
+  deletarItemComanda(mesa_key, item_key){
+    return this.db.object(`mesas/${mesa_key}/comanda_aberta/itens/${item_key}`).remove();
+  }
+
+                        /*** AUTENTICAÇÃO ***/
   criarUsuarioComEmail(email:string, senha:string, nome:string){
     return firebase.auth().createUserWithEmailAndPassword(email,senha)
               .then(user => {

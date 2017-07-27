@@ -1,3 +1,4 @@
+import { CallNumber } from '@ionic-native/call-number';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { SuperTabs } from 'ionic2-super-tabs';
@@ -17,7 +18,10 @@ export class MenuPage {
   tab3Root = 'Tab3Page'
 
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    public callNumber: CallNumber
+    ) {
     
   }
 
@@ -32,5 +36,8 @@ export class MenuPage {
     else if($event.index == 2){
       this.titulo = 'Combos'
     }
+  }
+  ligar(){
+      this.callNumber.callNumber('99987-2147',true);
   }
 }

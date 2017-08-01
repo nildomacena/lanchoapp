@@ -21,6 +21,10 @@
         <ion-icon [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
+      <button menuClose ion-item (click)="goToEndereco()" *ngIf="logado">
+        <ion-icon name="locate"></ion-icon>
+        Endereco
+      </button>
       <button menuClose ion-item (click)="goToCadastroItem()" *ngIf="logado && usuario_sys">
         <ion-icon name="log-out"></ion-icon>
         Cadastrar item

@@ -1,5 +1,7 @@
 import { AlertController } from 'ionic-angular';
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class UtilProvider {  
@@ -7,7 +9,8 @@ export class UtilProvider {
   private len: any;
 
   constructor(
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public http: Http
   ){
 
   }
@@ -58,5 +61,9 @@ export class UtilProvider {
       ]
     });
     alert.present();
+  }
+
+  buscarPeloCEP(cep: string): Observable<any>{
+      return this.http.get(`http://viacep.com.br/ws/${cep}/json/ `);
   }
 }

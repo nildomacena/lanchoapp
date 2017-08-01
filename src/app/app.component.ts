@@ -75,6 +75,11 @@ export class MyApp {
   goToCadastroItem(){
     this.nav.push('ItemCadastroPage');
   }
+
+  goToEndereco(){
+    this.nav.push('EnderecoPage');
+  }
+
   openPage(page) {
 
     this.nav.push(page.component);

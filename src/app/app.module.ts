@@ -19,6 +19,7 @@ import { Facebook } from '@ionic-native/facebook';
 
 import { FireProvider } from '../providers/fire';
 import { UtilProvider } from '../providers/util';
+import { Http, HttpModule } from '@angular/http';
 
 
 const config = {
@@ -39,6 +40,7 @@ const config = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
+    HttpModule,
     //SuperTabsModule.forRoot(),
     AngularFireAuthModule
   ],

@@ -7,18 +7,20 @@
 </ion-header>
 
 
-<ion-content no-padding>
-  <ion-card padding>
+<ion-content no-padding class="outer-content">
+  <ion-card>
     <img [src]="item.imagem" >
-    <ion-card-title>
-      {{item.descricao}}
-    </ion-card-title>
-    <p>
-      {{item.detalhes}}
-    </p>
-    <div class="info">
-      <p text-right>{{item.preco | currency:'BRL':true}}</p>
-    </div>
+    <ion-card-content>
+      <ion-card-title class="titulo">
+        {{item.descricao}}
+      </ion-card-title>
+      <p class="detalhes">
+        {{item.detalhes}}
+      </p>
+      <div>
+        <p text-right class="info">{{item.preco | currency:'BRL':true}}</p>
+      </div>
+    </ion-card-content>
   </ion-card>
   <!--
   <ion-grid no-padding>

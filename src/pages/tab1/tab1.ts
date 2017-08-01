@@ -23,7 +23,7 @@ export class Tab1Page {
     ) {
       this.itens = [
         {descricao: "X-Burger", imagem: "http://painel.perdigao.com.br/panel/sites/default/files/styles/is_product_cover_mob_750_823/public/recipes-images/duplo-x-burger.png?itok=RnHhGv5Y", detalhes: "Pão, hambúrguer, queijo, presunto e salada", preco: 10},
-        {descricao: "X-Alcatra", imagem: "http://www.arenaparque.com/loja/image/cache/data/download-600x600.jpg", detalhes: "Pão, Alcatra, queijo, presunto e salada", preco: 14},
+        {descricao: "X-Alcatra", imagem: "http://mariosburgers.podepedir.com.br/uploads/podepedir-alcatra-completo-708-58a1af039e3be.png", detalhes: "Pão, Alcatra, queijo, presunto e salada", preco: 14},
         {descricao: "X-Frango", imagem: "http://sandubadocareca.podepedir.com.br/uploads/podepedir-sanduba-de-frango-desfiado-19-577ef78839362.png", detalhes: "Pão, frango desfiado, queijo, presunto e salada", preco: 13},
         {descricao: "X-Picanha", imagem: "http://sandubadocareca.podepedir.com.br/uploads/podepedir-sanduba-de-picanha-argentina-55-577faea519b38.png", detalhes: "Pão, picanha, queijo, presunto e salada", preco: 17},
         {descricao: "Passaporte de carne", imagem: "http://blog.tnh1.com.br/nidelins/wp-content/uploads/2015/07/blog-passaporte-gaucho21.jpg", detalhes: "Pão seda, carne moída, salsicha e verdura", preco: 10},

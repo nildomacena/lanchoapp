@@ -1,6 +1,7 @@
+import { FireProvider } from './../../providers/fire';
 import { UtilProvider } from './../../providers/util';
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, AlertController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, AlertController, LoadingController } from 'ionic-angular';
 import 'rxjs/add/operator/catch';
 
 
@@ -11,16 +12,30 @@ import 'rxjs/add/operator/catch';
 })
 export class EnderecoPage {
 
+  enderecos: any[] = [];
   constructor(
       public navCtrl: NavController,
       public navParams: NavParams,
       public alertCtrl: AlertController,
-      public util: UtilProvider
+      public util: UtilProvider,
+      public loadingCtrl: LoadingController,
+      public fire: FireProvider
     ) {
   }
 
   ionViewDidLoad() {
-    this.alertaInicial();
+    
+    let loading = this.loadingCtrl.create({
+      enableBackdropDismiss:false,
+      content: 'Carregando...'
+    })
+    loading.present();
+    this.fire.getEnderecosUsuario()
+      .then(usuario => { 
+        if(usuario.enderecos)
+          this.enderecos = usuario.enderecos;
+        loading.dismiss();
+      })
   }
 
   alertaInicial(erro?:boolean){
@@ -51,7 +66,13 @@ export class EnderecoPage {
           console.log(result);
         }
       )
-      
+  }
+
+  adicionarEndereco(){
+    this.alertaInicial()
+  }
+  
+  excluirEndereco(endereco){
 
   }
 }

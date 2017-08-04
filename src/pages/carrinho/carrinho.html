@@ -1,0 +1,59 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Carrinho</ion-title>
+    <ion-buttons end *ngIf="carrinho.estabelecimento" >
+      <button ion-button icon-only (click)="openSettings()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <div class="vazio" *ngIf="carrinho.itens.length < 1">
+    <h4>Você ainda não adicionou itens ao carrinho. Não perca tempo, faça já seu pedido.</h4>
+    <button ion-button primary style="width: 100%" (click)="voltar()" >
+        Visualizar ofertas
+    </button>
+  </div>
+  <ion-list>
+    <ion-item *ngFor="let item of carrinho.itens" >
+      <ion-thumbnail item-left>
+        <img [src]="item.imagem" *ngIf="item.imagem"  class="imagem-lanche">
+        <ion-img *ngIf="!item.imagem" src="assets/img/no-photo.jpg" class="imagem-lanche"></ion-img>
+      </ion-thumbnail>
+      <h2>{{item.descricao}}</h2>
+      <p>{{item.preco | currency: 'BRL':true}}</p>
+      <button item-center ion-button small (click)="addObservacao(item)" >Obs.</button>
+      <div item-right style="text-align: center" >
+        <button class="botao-comprar" (click)="addItem(item)" block clear ion-button icon-only>
+          <ion-icon name="add"></ion-icon>
+        </button>
+        <p class="quantidade">{{item.quantidade}}</p>
+        <button class="botao-comprar" (click)="removeItem(item)" block clear ion-button icon-only>
+          <ion-icon name="remove"></ion-icon>
+        </button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer class="footer">
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col col-7>
+        <span class="total_compra">Total da compra: {{carrinho.valor_total | currency: 'BRL':true}}</span>
+      </ion-col>
+      <ion-col col-5>
+        <button  ion-button primary block outline (click)="fecharPedido()">Continuar</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>

@@ -1,3 +1,4 @@
+import { FireProvider } from './../../providers/fire';
 import { CallNumber } from '@ionic-native/call-number';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Component } from '@angular/core';
@@ -15,7 +16,8 @@ export class ItemDetailPage {
     public navParams: NavParams,
     public photoViewer: PhotoViewer,
     public callNumber: CallNumber,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public fire: FireProvider
   ) {
     this.item = this.navParams.get('item');
   }
@@ -47,5 +49,10 @@ export class ItemDetailPage {
       ]
     });
     alert.present();
+  }
+
+  addParaCarrinho(){
+    console.log(this.item);
+    this.fire.adicionarItemCarrinho(this.item);
   }
 }

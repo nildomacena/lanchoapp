@@ -8,5 +8,16 @@
 
 
 <ion-content padding>
-
+  <div *ngIf="enderecos?.length == 0 || !enderecos">
+    <h5 text-center>Nenhum endereço foi cadastrado</h5>
+    <button ion-button (click)="adicionarEndereco()" >Clique aqui para cadastrar um endereco</button>
+  </div>
+  <ion-card *ngFor="let endereco of enderecos">
+    <ion-card-header>
+      <button ion-button clear small class="excluir-endereco" (click)="excluirEndereco(endereco)" >x</button>
+    </ion-card-header>
+    <ion-card-content>
+      {{endereco.descricao}}
+    </ion-card-content>
+  </ion-card>
 </ion-content>

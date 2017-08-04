@@ -1,3 +1,17 @@
 page-endereco {
+    ion-card{
+        ion-card-header{
+            height: 20px;
+            padding: 0px;
+            margin-left: 80vw;
+            margin-top: -3px;
+        }
+        ion-content{
+            margin-top: -19px;
+        }
+        .excluir-endereco{
+            margin-top: -10px;
+        }
 
+    }
 }

@@ -13,6 +13,7 @@ import 'rxjs/add/operator/first';
 export class FireProvider {
   authState: Observable<firebase.User>;
   user: any;
+  public carrinho: any;
   constructor(
     public db: AngularFireDatabase,
     public afAuth: AngularFireAuth,
@@ -23,6 +24,11 @@ export class FireProvider {
       this.authState.subscribe(user => {
         this.user = firebase.auth().currentUser;
       })
+      this.carrinho = {
+        valor_total: 0,
+        quantidade_total: 0,
+        itens:[]
+      }
   }
 
   listarItens(){
@@ -47,6 +53,93 @@ export class FireProvider {
   enviaMensagem(email: string, message: string): firebase.Promise<any>{
       return firebase.database().ref('contato').push({email: email, mensagem: message})
   }
+
+                        /*** CARRINHO ***/
+
+adicionarItemCarrinho(novoItem, observacao?){
+  let inserido: boolean = false;
+  
+  if(this.carrinho.itens.length == 0){
+    this.carrinho.itens.push(novoItem);
+    this.carrinho.itens[0]['quantidade'] = 1;
+
+    inserido = true;
+    this.atualizarValorTotalCarrinho();
+  }
+  else{
+    this.carrinho.itens.map((item, index) => {
+      if(item.$key == novoItem.$key){
+        item.quantidade++;
+        this.atualizarValorTotalCarrinho()
+        inserido = true;
+      }
+    })
+    if(!inserido){
+      let index = this.carrinho.itens.push(novoItem) - 1;
+      this.carrinho.itens[index]['quantidade'] = 1;
+      this.atualizarValorTotalCarrinho();
+      inserido = true;
+    }
+  }
+
+  console.log(this.carrinho);
+}
+
+incrementaItem(novoItem):any{
+  this.carrinho.itens.map((item,index) => {
+    if(item.$key == novoItem.$key){
+        this.carrinho.itens[index].quantidade ++;
+    }
+  })
+  this.atualizarValorTotalCarrinho();
+  console.log(this.carrinho);
+  return this.carrinho;
+}
+
+decrementaItem(novoItem):any{
+  //let a: any[];
+  //a.splice()
+  this.carrinho.itens.map((item,index) => {
+    if(item.$key == novoItem.$key){
+      if(item.quantidade <= 1)
+        this.carrinho.itens.splice(index,1)
+      else{
+        this.carrinho.itens[index].quantidade --;
+      }
+    }
+  })
+  this.atualizarValorTotalCarrinho();
+  console.log(this.carrinho);
+  return this.carrinho;
+}
+
+adicionarObservacao(novoItem, observacao){
+  this.carrinho.itens.map((item,index) => {
+    if(item.$key == novoItem.$key){
+        this.carrinho.itens[index]['observacao']=observacao;
+    }
+  })
+  return this.carrinho;
+}
+
+apagarObservacao(novoItem){
+  this.carrinho.itens.map((item,index) => {
+    if(item.$key == novoItem.$key){
+        delete this.carrinho.itens[index]['observacao'];
+    }
+  })
+  return this.carrinho;
+}
+
+atualizarValorTotalCarrinho(){
+  this.carrinho.valor_total = 0;
+  this.carrinho.quantidade_total = 0;
+  this.carrinho.itens.map(item => { 
+    this.carrinho.valor_total += item.preco * item.quantidade;
+    this.carrinho.quantidade_total += item.quantidade;
+  })
+  console.log(this.carrinho.valor_total)
+}
 
 
 
@@ -132,7 +225,10 @@ editarItem(item_key: string, descricao:string, preco:number, categoria:any){
   loginComEmail(email:string, senha:string){
     return firebase.auth().signInWithEmailAndPassword(email,senha);
   }
+
+
   loginComFacebook(): firebase.Promise<any>{
+    console.log('login com facebook');
     if(this.platform.is('mobile') && this.platform.is('cordova')){
       console.log('rodando no smartphone');
       return this.facebook.login(['user_friends', 'public_profile', 'email'])
@@ -154,7 +250,11 @@ editarItem(item_key: string, descricao:string, preco:number, categoria:any){
       console.log('rodando no navegador');
       let provider = new firebase.auth.FacebookAuthProvider();
       
-      return firebase.auth().signInWithRedirect(provider);
+      return firebase.auth().signInWithRedirect(provider)
+        .then(user => {
+          console.log('user');
+          return Promise.resolve('logado');
+        })
 
     }
   }
@@ -171,7 +271,45 @@ editarItem(item_key: string, descricao:string, preco:number, categoria:any){
         return Promise.resolve(false);
     })
   }
+
+  checaInfoUsuario(user){
+    this.db.list('usuarios_app/',{
+      query:{
+        orderByChild: 'uid',
+        equalTo: user.uid
+      }
+    })
+      .first().toPromise().then(snap => {
+        if(snap.length <= 0 ){
+          this.db.list('usuarios_app/').push({
+            uid: user.uid,
+            nome: user.displayName,
+            imagem: user.photoURL
+          })
+          console.log('Novo usuário detectado');
+        }
+          
+        else{
+          console.log('usuario já cadastrado')
+        }
+      })
+  }
+
+  getEnderecosUsuario(): Promise<any>{
+    return this.db.list(`usuarios_app/`,{
+        query:{
+          orderByChild: 'uid',
+          equalTo: this.user.uid
+        }
+      })
+      .first().toPromise()
+  }
+
   logout(){
     return firebase.auth().signOut();
+  }
+
+  getEnderecoUsuario(){
+
   }
 }

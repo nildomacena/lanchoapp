@@ -25,6 +25,10 @@ export class MenuPage {
     
   }
 
+  ionViewDidLoad(){
+    console.log('entrou no menu');
+  }
+  
   onTabSelect($event){
     console.log($event);
     if($event.index == 0){

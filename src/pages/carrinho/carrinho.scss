@@ -1,0 +1,82 @@
+page-carrinho {
+    .item-info{
+        font-size: smaller;
+    }
+    .titulo-lanche{
+        font-size: 1.6rem;
+        margin-left: 5px;
+    }
+    .avatar-wrapper{
+        width: 100%;
+    }
+    .valign{
+        height: 100%;
+        min-height: 100%;
+
+        /* habilita o flex nos filhos diretos */
+        display: -ms-flex;
+        display: -webkit-flex;
+        display: flex;
+
+        /* centraliza na vertical */
+        -ms-align-items: center;
+        -webkit-align-items: center;
+        align-items: center;
+
+        /* centraliza na horizontal */
+        -ms-justify-content: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        ion-avatar{
+            width: 100%;
+        }
+    }
+
+    .descricao-lanche{
+        font-size: 85%;
+        font-weight: 400;
+    }
+
+    .card-md{
+        margin-bottom: 15px;
+    }
+
+    .card-content-md{
+        padding: 0px 16px 0px 0px;
+    }
+    .botoes{
+        margin-right: 5px;
+    }
+
+    .vazio{
+        margin: 10px;
+    }
+
+    .segmento{
+        margin-bottom: 20px;
+    }
+    .imagem-lanche{
+        min-width: 15vw;
+        min-height: 15vw;
+    }
+    .botao-comprar{
+    }
+    .valor-total{
+        font-size: 120%;
+        font-weight: 700;
+    }
+    .quantidade{
+        font-weight: 700;
+        text-decoration: underline;
+        font-size: larger;
+    }
+    ion-footer{
+        height: 56px;
+        font-weight: bolder;
+        
+        .total-compra{
+            margin-top: 50%
+        }
+    }
+
+}   

@@ -42,8 +42,12 @@ export class MyApp {
                 this.nav.setRoot('MenuPage')
               }
             })
+          this.fire.checaInfoUsuario(dados);
           console.log(this.user);
           this.logado = true
+
+
+
 
         }
         else{
@@ -55,6 +59,7 @@ export class MyApp {
       { title: 'Nos encontre', component: 'MapaPage', icon:'map' },
       //{ title: 'Cardápio', component: 'MenuPage', icon:'book' },
       { title: 'Sorteios', component: 'SorteiosPage', icon:'logo-usd' },
+      { title: 'Carrinho', component: 'CarrinhoPage', icon:'cart' }
     ];
 
   }
